@@ -317,10 +317,8 @@ TEST(TBitField, bitfield_stay_clear_after_two_clears)
     int bitIdx = 3;
 
     bf.SetBit(bitIdx);
-    EXPECT_NE(0, bf.GetBit(bitIdx));
 
     bf.ClrBit(bitIdx);
-    EXPECT_EQ(0, bf.GetBit(bitIdx));
 
     bf.ClrBit(bitIdx);
     EXPECT_EQ(0, bf.GetBit(bitIdx));

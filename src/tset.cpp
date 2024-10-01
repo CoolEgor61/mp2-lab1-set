@@ -22,7 +22,7 @@ TSet::TSet(const TBitField &bf) : BitField(bf), MaxPower(bf.GetLength()) {}
 
 TSet::operator TBitField()
 {
-    return FAKE_BITFIELD;
+    return BitField;
 }
 
 int TSet::GetMaxPower(void) const // получить макс. к-во эл-тов
@@ -59,16 +59,13 @@ TSet& TSet::operator=(const TSet &s) // присваивание
 
 int TSet::operator==(const TSet &s) const // сравнение
 {
-    if (MaxPower != s.MaxPower) return 0;
-    else if (BitField != s.BitField) return 0;
+    if (BitField != s.BitField) return 0;
     return 1;
 }
 
 int TSet::operator!=(const TSet &s) const // сравнение
 {
-    if (MaxPower != s.MaxPower) return 1;
-    else if (BitField != s.BitField) return 1;
-    return 0;
+    return !(*this == s);
 }
 
 TSet TSet::operator+(const TSet &s) // объединение
