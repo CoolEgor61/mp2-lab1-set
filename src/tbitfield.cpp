@@ -13,12 +13,12 @@
 static const int FAKE_INT = -1;
 static TBitField FAKE_BITFIELD(1);
 
-static const int sizet = sizeof(TELEM); // Параметризация размера типа данных
+static const long long sizet = sizeof(TELEM); // Параметризация размера типа данных
 
 TBitField::TBitField(int len)
 {
     if (len > 0) {
-        MemLen = ceil((double)len / ((double)sizet * 8.0));
+        MemLen = ceil((long double)len / ((long double)sizet * 8.0));
         BitLen = len;
         pMem = new TELEM[MemLen]{ 0 };
     }
@@ -47,7 +47,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
-    return 1 << (n % (sizet*8));
+    return (TELEM)1 << (n % (sizet*8));
 }
 
 // доступ к битам битового поля
@@ -137,7 +137,7 @@ TBitField TBitField::operator~(void) // отрицание
     TBitField ans(BitLen);
     for (int i = 0; i < MemLen; i++) ans.pMem[i]=~pMem[i];
     int end = BitLen - MemLen * sizet * 8;
-    ans.pMem[MemLen - 1] &= ~((~((TELEM)0)) << end);
+    ans.pMem[MemLen-1] &= ~((~((TELEM)0)) << end);
     return ans;
 }
 
