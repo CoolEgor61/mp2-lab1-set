@@ -6,8 +6,6 @@
 // Битовое поле
 
 #include "tbitfield.h"
-#include <string>
-#include <exception>
 
 // Fake variables used as placeholders in tests
 static const int FAKE_INT = -1;
@@ -18,9 +16,10 @@ static const long long sizet = sizeof(TELEM); // Параметризация р
 TBitField::TBitField(int len)
 {
     if (len > 0) {
-        MemLen = ceil((long double)len / ((long double)sizet * 8.0));
+        MemLen = ceil((double)len / ((double)sizet * 8.0));
         BitLen = len;
         pMem = new TELEM[MemLen]{ 0 };
+        if (pMem == 0) throw overflow_error("Out of memory");
     }
     else throw length_error("Length must be positive");
 }
@@ -30,7 +29,7 @@ TBitField::TBitField(const TBitField &bf) // конструктор копиро
   BitLen=bf.BitLen;
   MemLen=bf.MemLen;
   pMem=new TELEM[MemLen];
-  copy(bf.pMem,bf.pMem+bf.MemLen,pMem);
+  if (pMem == 0) throw overflow_error("Out of memory"); else copy(bf.pMem,bf.pMem+bf.MemLen,pMem);
 
 }
 
@@ -47,7 +46,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
-    return (TELEM)1 << (n % (sizet*8));
+    return ((TELEM)1) << (n % (sizet*8));
 }
 
 // доступ к битам битового поля
@@ -86,14 +85,14 @@ TBitField& TBitField::operator=(const TBitField &bf) // присваивание
     if (this == &bf) return *this;
     else {
         BitLen = bf.BitLen;
-        if (MemLen = bf.MemLen) {
+        if (MemLen == bf.MemLen) {
             copy(bf.pMem, bf.pMem + bf.MemLen, pMem);
         }
         else {
-            ~(*this);
+            delete[] pMem;
             MemLen = bf.MemLen;
             pMem = new TELEM[MemLen];
-            copy(bf.pMem, bf.pMem + bf.MemLen, pMem);
+            if (pMem == 0) throw overflow_error("Out of memory"); else copy(bf.pMem, bf.pMem + bf.MemLen, pMem);
         }
     }
     return *this;
