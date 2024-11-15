@@ -40,4 +40,13 @@ public:
   friend istream &operator>>(istream &istr, TSet &bf);
   friend ostream &operator<<(ostream &ostr, const TSet &bf);
 };
+
+class TestTSet : public ::testing::Test {
+protected:
+	TSet* s,*s0, *s1, *s2, *s3, *s4, *s5, *s6, *s7, *s15,*s25,*s35,*s45,*s55;
+	void SetUp();
+	void SetUp2(int n);
+	void TearDown();
+};
+
 #endif

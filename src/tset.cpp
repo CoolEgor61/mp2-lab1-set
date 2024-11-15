@@ -113,3 +113,48 @@ ostream& operator<<(ostream &ostr, const TSet &s) // вывод
     ostr << s.BitField;
     return ostr;
 }
+
+// фикстуры
+
+void TestTSet::SetUp()
+{
+    s = new TSet(5);        // s - for initialization
+
+    s0 = new TSet(5);
+    s1 = new TSet(4);
+    s2 = new TSet(6);
+    s3 = new TSet(4);
+    s4 = new TSet(5);
+    s5 = new TSet(5);
+    s6 = new TSet(7);
+    s7 = new TSet(7);
+
+    s15 = new TSet(18);
+    s25 = new TSet(18);
+    s35 = new TSet(18);
+    s45 = new TSet(18);
+    s55 = new TSet(18);
+}
+
+void TestTSet::SetUp2(int n)
+{
+    s = new TSet(n);
+}
+
+void TestTSet::TearDown()
+{
+    delete s;
+    delete s0;
+    delete s1;
+    delete s2;
+    delete s3;
+    delete s4;
+    delete s5;
+    delete s6;
+    delete s7;
+    delete s15;
+    delete s25;
+    delete s35;
+    delete s45;
+    delete s55;
+}

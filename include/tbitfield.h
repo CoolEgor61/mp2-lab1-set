@@ -9,6 +9,7 @@
 #define __BITFIELD_H__
 
 #include <iostream>
+#include "gtest.h"
 
 using namespace std;
 
@@ -51,5 +52,13 @@ public:
 //   массив pМем рассматривается как последовательность MemLen элементов
 //   биты в эл-тах pМем нумеруются справа налево (от младших к старшим)
 // О8 Л2 П4 С2
+
+class TestTBitField : public ::testing::Test {
+protected:
+	TBitField* bf, * bf1, * bf2, * bf3, * bfa1, * bfa2, * bfa3, *bfa4, * expbf, * expbf2, * bfb1, * bfb2, * expbfb, *bfc1, * bfc2, * bfc3, * bfc4;
+	void SetUp();
+	void SetUp2(int n);
+	void TearDown();
+};
 
 #endif

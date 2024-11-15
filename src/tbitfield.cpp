@@ -157,3 +157,52 @@ ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
     }
     return ostr;
 }
+
+// фикстуры
+
+void TestTBitField::SetUp()
+{
+    bf = new TBitField(100);        // bf - for initialization
+
+    bf1 = new TBitField(2);         // bf1 - bf3 - for assign operator
+    bf2 = new TBitField(2);
+    bf3 = new TBitField(5);
+
+    bfa1 = new TBitField(4);        // bfa1 - bfa4 and expbf, expbf2 - for logical operators
+    bfa2 = new TBitField(4);
+    bfa3 = new TBitField(5);
+    bfa4 = new TBitField(4);
+    expbf = new TBitField(4);
+    expbf2 = new TBitField(5);
+
+    bfb1 = new TBitField(38);       // bfb1, bfb2, expbfb - for can_invert_large_bitfield
+    bfb2 = new TBitField(38);
+    expbfb = new TBitField(38);
+
+    bfc1 = new TBitField(4);         // bfc1 - bfc4 - invert_plus_and_operator_on_different_size_bitfield
+    bfc2 = new TBitField(4);
+    bfc3 = new TBitField(8);         
+    bfc4 = new TBitField(8);
+
+}
+
+void TestTBitField::SetUp2(int n)
+{
+    bf = new TBitField(n);
+}
+
+void TestTBitField::TearDown()
+{
+    delete bf;
+    delete bf1;
+    delete bf2;
+    delete bf3;
+    delete bfa1;
+    delete bfa2;
+    delete bfa3;
+    delete expbf;
+    delete expbf2;
+    delete bfb1;
+    delete bfb2;
+    delete expbfb;
+}
